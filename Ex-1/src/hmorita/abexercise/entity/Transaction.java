@@ -1,21 +1,21 @@
 package hmorita.abexercise.entity;
 
-public class Transaction {
+public class Transaction implements Keyable {
 
-    private int transId;
+    private long transId;
     private String transType;
     private int transDateMDY;
-    private int customerId;
+    private long customerId;
     private short quantity;
     private int price;
     private short discount;
-    private int returnTranId;
+    private long returnTranId;
 
-    public int getTransid() {
+    public long getTransid() {
         return transId;
     }
 
-    public void setTransid(int transid) {
+    public void setTransid(long transid) {
         this.transId = transid;
     }
 
@@ -35,11 +35,11 @@ public class Transaction {
         this.transDateMDY = transsdateMDY;
     }
 
-    public int getCustomerId() {
+    public long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerid) {
+    public void setCustomerId(long customerid) {
         this.customerId = customerid;
     }
 
@@ -67,11 +67,11 @@ public class Transaction {
         this.discount = discount;
     }
 
-    public int getReturnTranId() {
+    public long getReturnTranId() {
         return returnTranId;
     }
 
-    public void setReturnTranId(int returnTranId) {
+    public void setReturnTranId(long returnTranId) {
         this.returnTranId = returnTranId;
     }
 
@@ -83,4 +83,21 @@ public class Transaction {
         return getQuantity() * getPrice();
     }
 
+    @Override
+    public long key() {
+        return transId;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+         .append("Transaction Id:" + transId)
+         .append(" " + transType)
+         .append(" " + customerId)
+         .append(" " + quantity)
+         .append(" " + price)
+         .append(" " + discount)
+         .append(" " + returnTranId).toString();
+
+    }
 }

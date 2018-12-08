@@ -6,13 +6,10 @@ import hmorita.abexercise.entity.Transaction;
 import hmorita.abexercise.validation.FieldValidateMDY;
 import hmorita.abexercise.validation.FieldValidatePrice;
 import hmorita.abexercise.validation.FieldValidateQty;
-import org.apache.poi.util.StringUtil;
-import scala.Int;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class TransactionFactory implements EntityFactory<TransactionData, Transaction> {
 
@@ -20,22 +17,49 @@ public class TransactionFactory implements EntityFactory<TransactionData, Transa
     public Transaction create(TransactionData data) throws IllegalArgumentException {
 
         Transaction tx = new Transaction();
-        tx.setTransid(convertId(data.customerId));
+        tx.setTransid(convertLongId(data.customerId));
+        tx.setTransType(data.transType);
         tx.setTransDateMDY(convertTransDate(data.transDateMDY));
-        tx.setCustomerId(convertId(data.customerId));
+        tx.setCustomerId(convertLongId(data.customerId));
         tx.setQuantity(convertQuantity(data.quantity));
         tx.setPrice(convertPrice(data.price));
         tx.setDiscount(convertDiscount(data.discount));
-        tx.setReturnTranId(convertId(data.returnTranId));
+        tx.setReturnTranId(convertLongId(data.returnTranId));
 
         return tx;
+    }
+
+    @Override
+    public Transaction create(String line) throws IllegalArgumentException {
+        TransactionData d = new TransactionData();
+        String[] els = line.split(",");
+        for(int i = 0; i < els.length; i++) {
+            if(skipColumnNumbers().contains(i)) continue;
+            if(i == 0) d.transId = els[i];
+            else if(i == 1) d.transType = els[i];
+            else if(i == 2) d.transDateMDY = els[i];
+            else if(i == 3) d.customerId = els[i];
+            else if(i == 5) d.quantity = els[i];
+            else if(i == 6) d.price = els[i];
+            else if(i == 7) d.discount = els[i];
+            else if(i == 8) d.returnTranId = els[i];
+        }
+        return create(d);
 
     }
 
+    @Override
+    public List<Integer> skipColumnNumbers() {
+        return Arrays.asList(
+                4, // Poduct Description
+                9  // Return reason
+        );
+    }
 
-    protected int convertId(String s) {
+
+    protected long convertLongId(String s) {
         if(s == null || s.isEmpty()) return 0;
-        return Integer.valueOf(s);
+        return Long.valueOf(s);
     }
 
     protected TransType convertTransType(String s) throws IllegalArgumentException {

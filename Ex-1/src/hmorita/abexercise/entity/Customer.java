@@ -2,7 +2,7 @@ package hmorita.abexercise.entity;
 
 public class Customer implements Keyable, LogicalMatcher {
 
-    private int _customerid;
+    private long _customerid;
     private String _name;
 
     public Customer(int _customerid, String name) {
@@ -10,11 +10,11 @@ public class Customer implements Keyable, LogicalMatcher {
         this._name = name;
     }
 
-    public int getCustomerid() {
+    public long getCustomerid() {
         return _customerid;
     }
 
-    public void setCustomerid(int _customerid) {
+    public void setCustomerid(long _customerid) {
         this._customerid = _customerid;
     }
 
@@ -27,7 +27,7 @@ public class Customer implements Keyable, LogicalMatcher {
     }
 
     @Override
-    public int key() {
+    public long key() {
         return _customerid;
     }
 
