@@ -17,14 +17,14 @@ public class TransactionFactory implements EntityFactory<TransactionData, Transa
     public Transaction create(TransactionData data) throws IllegalArgumentException {
 
         Transaction tx = new Transaction();
-        tx.setTransid(convertLongId(data.customerId));
-        tx.setTransType(data.transType);
+        tx.setTransid(convertKey(data.customerId));
+        tx.setTransType(convertTransType(data.transType));
         tx.setTransDateMDY(convertTransDate(data.transDateMDY));
-        tx.setCustomerId(convertLongId(data.customerId));
+        tx.setCustomerId(convertKey(data.customerId));
         tx.setQuantity(convertQuantity(data.quantity));
         tx.setPrice(convertPrice(data.price));
         tx.setDiscount(convertDiscount(data.discount));
-        tx.setReturnTranId(convertLongId(data.returnTranId));
+        tx.setReturnTranId(convertKey(data.returnTranId));
 
         return tx;
     }
@@ -56,11 +56,6 @@ public class TransactionFactory implements EntityFactory<TransactionData, Transa
         );
     }
 
-
-    protected long convertLongId(String s) {
-        if(s == null || s.isEmpty()) return 0;
-        return Long.valueOf(s);
-    }
 
     protected TransType convertTransType(String s) throws IllegalArgumentException {
         return TransType.valueOf(s.toUpperCase());

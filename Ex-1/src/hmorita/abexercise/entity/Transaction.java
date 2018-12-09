@@ -3,7 +3,7 @@ package hmorita.abexercise.entity;
 public class Transaction implements Keyable {
 
     private long transId;
-    private String transType;
+    private TransType transType;
     private int transDateMDY;
     private long customerId;
     private short quantity;
@@ -19,11 +19,11 @@ public class Transaction implements Keyable {
         this.transId = transid;
     }
 
-    public String getTransType() {
+    public TransType getTransType() {
         return transType;
     }
 
-    public void setTransType(String transtype) {
+    public void setTransType(TransType transtype) {
         this.transType = transtype;
     }
 
@@ -80,7 +80,8 @@ public class Transaction implements Keyable {
      * Quantity max is supposed to 100 and price is 1000000, so max sale amount is less than 100,000,000. (1 oku)
      */
     public int calculateSalesAmount() throws IllegalArgumentException {
-        return getQuantity() * getPrice();
+        int sign = transType == TransType.R ? -1 : 1;
+        return getQuantity() * getPrice() * sign;
     }
 
     @Override
