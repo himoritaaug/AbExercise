@@ -17,9 +17,5 @@ public class CustomerTest {
         assertEquals(c1.key(), 7602);
         assertEquals(c2.key(), 7603);
 
-        assertFalse(c1.isLogicalMatch(c2)); // False
-        assertTrue(c2.isLogicalMatch(c3)); // True
-
-
     }
 }
