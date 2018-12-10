@@ -1,7 +1,5 @@
 package hmorita.abexercise.validation;
 
-import scala.Int;
-
 public class FieldValidatePrice implements FieldValidate<Integer> {
 
     private String validatee;

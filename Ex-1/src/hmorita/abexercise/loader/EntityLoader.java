@@ -21,7 +21,7 @@ public interface EntityLoader<E extends Keyable, F extends EntityFactory> {
             Files.readAllLines(fileToPath).forEach(line -> {
                 if(!isSkipLine(line)) {
                     E c = (E)factory.create(line); // TODO : Revist to consider type safe.
-                    System.out.println(c.toString());
+                    //System.out.println(c.toString());
                     entities.add(c);
                 }
             });

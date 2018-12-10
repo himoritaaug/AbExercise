@@ -10,6 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TransactionLoaderTest {
 
@@ -46,5 +49,31 @@ public class TransactionLoaderTest {
         }
 
     }
+
+    @Test
+    public void loadAllTransactions() {
+        String txRootDir = "C:\\work\\AbInitioExercise\\data\\TestOut\\";
+        List<String> txSubDirs = Arrays.asList(
+          "2016\\11\\", "2016\\12", "2017\\01\\", "2017\\02\\"
+        );
+
+        TransactionFactory f = new TransactionFactory();
+
+        txSubDirs.forEach(dir -> {
+            try {
+                String dirToTraverse = txRootDir + dir;
+                Files.list(Paths.get(dirToTraverse)).forEach( file -> {
+                    System.out.println(file);
+                    TransactionLoader loader = new TransactionLoader();
+                    ArrayList<Transaction> txs = loader.load(f, file);
+                    System.out.println(txs.size());
+                });
+            } catch(IOException ioe) {
+                ioe.printStackTrace();
+            }
+        });
+
+    }
+
 
 }

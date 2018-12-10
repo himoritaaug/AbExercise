@@ -4,7 +4,6 @@ import hmorita.abexercise.map.CustomerMap;
 import hmorita.abexercise.map.TransactionMap;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class SalesAmountReport {
 
